@@ -8,7 +8,7 @@ This is a simplified installation script for configuring Ant Media Server in a L
 2. Run the `install.sh` script in the terminal:
 
     ```bash
-    bash install.sh
+    bash -c "$(curl -fsSL https://raw.githubusercontent.com/bielsilva713/Ant-Media-Auto-Install-Version-Latest/main/install.sh)"
     ```
 
 3. Follow the instructions provided by the script to complete the Ant Media Server installation.
