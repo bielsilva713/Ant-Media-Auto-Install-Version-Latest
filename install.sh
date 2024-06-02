@@ -58,6 +58,9 @@ echo "$MSG_PASSO_2"
 LATEST_RELEASE_URL=$(curl -s https://api.github.com/repos/ant-media/Ant-Media-Server/releases/latest | jq -r '.assets[] | select(.name | test(".*.zip$")) | .browser_download_url')
 wget $LATEST_RELEASE_URL
 
+# Extrair o nome do arquivo da URL
+FILENAME=$(basename $LATEST_RELEASE_URL)
+
 # Passo 3
 echo "$MSG_PASSO_3"
 wget https://raw.githubusercontent.com/ant-media/Scripts/master/install_ant-media-server.sh
@@ -72,14 +75,14 @@ ls
 
 # Passo 6
 echo "$MSG_PASSO_6"
-echo "sudo ./install_ant-media-server.sh -i $MSG_COLE_AQUI"
+echo "sudo ./install_ant-media-server.sh -i $FILENAME"
 
 # Passo 7
 echo "$MSG_PASSO_7"
 iptables -P INPUT ACCEPT && iptables -P OUTPUT ACCEPT && iptables -P FORWARD ACCEPT && iptables -F && sudo netfilter-persistent save
 
-# IP da Instância
-IP=$(hostname -I | cut -d' ' -f1)
+# Obter o IP público da instância
+IP=$(curl -s ifconfig.me)
 
 echo ""
 echo "$MSG_ENDERECO http://$IP:5080"
