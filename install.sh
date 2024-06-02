@@ -79,7 +79,13 @@ echo "sudo ./install_ant-media-server.sh -i $FILENAME"
 
 # Passo 7
 echo "$MSG_PASSO_7"
-iptables -P INPUT ACCEPT && iptables -P OUTPUT ACCEPT && iptables -P FORWARD ACCEPT && iptables -F && sudo netfilter-persistent save
+iptables -P INPUT ACCEPT && iptables -P OUTPUT ACCEPT && iptables -P FORWARD ACCEPT && iptables -F
+iptables -A INPUT -p tcp --dport 1935 -j ACCEPT
+iptables -A INPUT -p tcp --dport 5080 -j ACCEPT
+iptables -A INPUT -p tcp --dport 5443 -j ACCEPT
+iptables -A INPUT -p udp --dport 50000:60000 -j ACCEPT
+iptables -A INPUT -p tcp --dport 5000:65000 -j ACCEPT
+sudo netfilter-persistent save
 
 # Obter o IP público da instância
 IP=$(curl -s ifconfig.me)
