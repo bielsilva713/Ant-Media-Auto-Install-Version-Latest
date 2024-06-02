@@ -52,7 +52,8 @@ sudo apt update -y
 
 # Passo 2
 echo "$MSG_PASSO_2"
-wget https://github.com/ant-media/Ant-Media-Server/releases/latest
+LATEST_RELEASE_URL=$(curl -s https://api.github.com/repos/ant-media/Ant-Media-Server/releases/latest | jq -r '.assets[0].browser_download_url')
+wget $LATEST_RELEASE_URL
 
 # Passo 3
 echo "$MSG_PASSO_3"
