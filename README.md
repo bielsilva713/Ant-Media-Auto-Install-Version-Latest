@@ -1,26 +1,26 @@
-# Instalador do Ant Media Server
+# Ant Media Server Installer
 
-Este é um script de instalação simplificado para configurar o Ant Media Server em um ambiente Linux. O Ant Media Server é uma solução de streaming ao vivo e sob demanda que oferece escalabilidade e suporte para uma variedade de casos de uso, como transmissão de vídeo ao vivo, conferências online, e-learning e muito mais.
+This is a simplified installation script for configuring Ant Media Server in a Linux environment. Ant Media Server is a live and on-demand streaming solution that offers scalability and support for a variety of use cases such as live video streaming, online conferencing, e-learning, and more.
 
-## Como usar
+## How to use
 
-1. Clone este repositório ou faça o download do arquivo `install.sh`.
-2. Execute o script `install.sh` no terminal:
+1. Clone this repository or download the `install.sh` file.
+2. Run the `install.sh` script in the terminal:
 
     ```bash
     bash install.sh
     ```
 
-3. Siga as instruções fornecidas pelo script para concluir a instalação do Ant Media Server.
+3. Follow the instructions provided by the script to complete the Ant Media Server installation.
 
-## Notas importantes
+## Important notes
 
-- Certifique-se de ter permissões de superusuário ao executar o script para garantir que todas as etapas sejam concluídas com êxito.
-- Após a instalação, o endereço de acesso ao Ant Media Server será exibido no terminal.
+- Make sure you have superuser permissions when running the script to ensure all steps are completed successfully.
+- After installation, the Ant Media Server access address will be displayed on the terminal.
 
-## Recursos
+## Resources
 
-- [Ant Media Server GitHub](https://github.com/ant-media/Ant-Media-Server): Repositório oficial do Ant Media Server.
-- [Ant Media Server Website](https://antmedia.io/): Mais informações sobre o Ant Media Server e seus recursos.
+- [Ant Media Server GitHub](https://github.com/ant-media/Ant-Media-Server): Official Ant Media Server repository.
+- [Ant Media Server Website](https://antmedia.io/): More information about Ant Media Server and its features.
 
-Sinta-se à vontade para contribuir ou relatar problemas neste repositório. Esperamos que este script simplifique o processo de instalação do Ant Media Server e ajude você a começar a utilizar esta poderosa plataforma de streaming de vídeo.
+Feel free to contribute or report issues in this repository. We hope this script simplifies the Ant Media Server installation process and helps you get started with this powerful video streaming platform.
