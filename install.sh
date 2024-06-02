@@ -1,38 +1,81 @@
 #!/bin/bash
 
-# Passo 1
-echo "✅ PASSO 1: INICIANDO AUTO INSTALÇÃO..."
+# Função para exibir o menu de seleção de idioma
+selecionar_idioma() {
+    echo "Selecione o idioma / Select the language:"
+    echo "1) Português"
+    echo "2) English"
+    read -p "Escolha uma opção / Choose an option: " idioma
+}
 
-# Passo 2
-echo "✅ PASSO 2: Atualizando os repositórios do apt..."
+# Função para definir mensagens com base na seleção do idioma
+definir_mensagens() {
+    case $idioma in
+        1)
+            MSG_PASSO_1="✅ PASSO 1: Atualizando os repositórios do apt..."
+            MSG_PASSO_2="✅ PASSO 2: Baixando a última versão do Ant Media Server..."
+            MSG_PASSO_3="✅ PASSO 3: Baixando o script de instalação do Ant Media Server..."
+            MSG_PASSO_4="✅ PASSO 4: Concedendo permissões de execução ao script..."
+            MSG_PASSO_5="✅ PASSO 5: Listando diretório atual..."
+            MSG_PASSO_6="✅ PASSO 6: Copie o texto vermelho e cole-o após o comando abaixo:"
+            MSG_PASSO_7="✅ PASSO 7: Configurando as regras do iptables..."
+            MSG_ENDERECO="➜ O endereço de login para acessar o Ant Media Server é:"
+            MSG_COLE_AQUI="COLE AQUI"
+            ;;
+        2)
+            MSG_PASSO_1="✅ STEP 1: Updating apt repositories..."
+            MSG_PASSO_2="✅ STEP 2: Downloading the latest version of Ant Media Server..."
+            MSG_PASSO_3="✅ STEP 3: Downloading the Ant Media Server installation script..."
+            MSG_PASSO_4="✅ STEP 4: Granting execution permissions to the script..."
+            MSG_PASSO_5="✅ STEP 5: Listing current directory..."
+            MSG_PASSO_6="✅ STEP 6: Copy the red text and paste it after the command below:"
+            MSG_PASSO_7="✅ STEP 7: Configuring iptables rules..."
+            MSG_ENDERECO="➜ The login address to access Ant Media Server is:"
+            MSG_COLE_AQUI="PASTE HERE"
+            ;;
+        *)
+            echo "Opção inválida. / Invalid option. Defaulting to Portuguese."
+            definir_mensagens 1
+            ;;
+    esac
+}
+
+# Selecionar idioma
+selecionar_idioma
+
+# Definir mensagens com base na seleção do idioma
+definir_mensagens
+
+# Passo 1
+echo "$MSG_PASSO_1"
 sudo apt update -y
 
-# Passo 3
-echo "✅ PASSO 3: Baixando a última versão do Ant Media Server..."
+# Passo 2
+echo "$MSG_PASSO_2"
 wget https://github.com/ant-media/Ant-Media-Server/releases/latest
 
-# Passo 4
-echo "✅ PASSO 4: Baixando o script de instalação do Ant Media Server..."
+# Passo 3
+echo "$MSG_PASSO_3"
 wget https://raw.githubusercontent.com/ant-media/Scripts/master/install_ant-media-server.sh
 
-# Passo 5
-echo "✅ PASSO 5: Concedendo permissões de execução ao script..."
+# Passo 4
+echo "$MSG_PASSO_4"
 chmod 755 install_ant-media-server.sh
 
-# Passo 6
-echo "✅ PASSO 6: Listando diretório atual..."
+# Passo 5
+echo "$MSG_PASSO_5"
 ls
 
-# Passo 7
-echo "✅ PASSO 7: Copie o texto vermelho e cole-o após o comando abaixo:"
-echo "sudo ./install_ant-media-server.sh -i COLE AQUI"
+# Passo 6
+echo "$MSG_PASSO_6"
+echo "sudo ./install_ant-media-server.sh -i $MSG_COLE_AQUI"
 
-# Passo 8
-echo "✅ PASSO 8: Configurando as regras do iptables..."
+# Passo 7
+echo "$MSG_PASSO_7"
 iptables -P INPUT ACCEPT && iptables -P OUTPUT ACCEPT && iptables -P FORWARD ACCEPT && iptables -F && sudo netfilter-persistent save
 
 # IP da Instância
 IP=$(hostname -I | cut -d' ' -f1)
 
 echo ""
-echo "➜ O endereço de login para acessar o Ant Media Server é: http://$IP:5080"
+echo "$MSG_ENDERECO http://$IP:5080"
