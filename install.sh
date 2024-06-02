@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # Passo 1
-echo "✅ PASSO 1: Concedendo permissões de superusuário..."
-sudo -i
+echo "✅ PASSO 1: INICIANDO AUTO INSTALÇÃO..."
 
 # Passo 2
 echo "✅ PASSO 2: Atualizando os repositórios do apt..."
