@@ -88,29 +88,41 @@ if [[ $instalar =~ ^[SsYy]$ ]]; then
     # Instalar jq para parsear JSON
     sudo apt-get install jq -y
 
+    # Obter a versão mais recente
+    LATEST_VERSION=$(curl -s https://api.github.com/repos/ant-media/Ant-Media-Server/releases/latest | jq -r '.tag_name')
+    LATEST_RELEASE_URL=$(curl -s https://api.github.com/repos/ant-media/Ant-Media-Server/releases/latest | jq -r '.assets[] | select(.name | test(".*.zip$")) | .browser_download_url')
+
     # Verificar se o Ant Media Server já está instalado
     if systemctl list-units --type=service --state=active | grep -q "antmedia.service"; then
         echo -e "${GREEN}Ant Media Server já está instalado.${NC}"
         INSTALLED_VERSION=$(antmedia --version | grep -oP '\d+\.\d+\.\d+')
-        LATEST_RELEASE_URL=$(curl -s https://api.github.com/repos/ant-media/Ant-Media-Server/releases/latest | jq -r '.tag_name')
         
-        if [ "$INSTALLED_VERSION" != "$LATEST_RELEASE_URL" ]; then
+        if [ "$INSTALLED_VERSION" != "$LATEST_VERSION" ]; então
             echo -e "${GREEN}Há uma nova versão disponível. Atualizando...${NC}"
+            # Passo 2
+            echo -e "$MSG_PASSO_2"
+            wget $LATEST_RELEASE_URL
+
+            # Extrair o nome do arquivo da URL
+            FILENAME=$(basename $LATEST_RELEASE_URL)
         else
             echo -e "${GREEN}Ant Media Server já está na versão mais recente.${NC}"
+            # Obter o IP público da instância
+            IP=$(curl -s ifconfig.me)
+
+            echo ""
+            echo -e "$MSG_ENDERECO ${YELLOW}http://$IP:5080${NC}"
             exit 0
         fi
     else
         echo -e "${GREEN}Instalando o Ant Media Server...${NC}"
+        # Passo 2
+        echo -e "$MSG_PASSO_2"
+        wget $LATEST_RELEASE_URL
+
+        # Extrair o nome do arquivo da URL
+        FILENAME=$(basename $LATEST_RELEASE_URL)
     fi
-
-    # Passo 2
-    echo -e "$MSG_PASSO_2"
-    LATEST_RELEASE_URL=$(curl -s https://api.github.com/repos/ant-media/Ant-Media-Server/releases/latest | jq -r '.assets[] | select(.name | test(".*.zip$")) | .browser_download_url')
-    wget $LATEST_RELEASE_URL
-
-    # Extrair o nome do arquivo da URL
-    FILENAME=$(basename $LATEST_RELEASE_URL)
 
     # Passo 3
     echo -e "$MSG_PASSO_3"
