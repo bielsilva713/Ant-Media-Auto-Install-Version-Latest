@@ -81,14 +81,10 @@ if [[ $instalar =~ ^[SsYy]$ ]]; then
     chmod 755 install_ant-media-server.sh
 
     # Passo 5
-    echo "$MSG_PASSO_5"
-    ls
-
-    # Passo 6
     echo "$MSG_PASSO_6"
     echo "sudo ./install_ant-media-server.sh -i $FILENAME"
 
-    # Passo 7
+    # Passo 6
     echo "$MSG_PASSO_7"
     iptables -P INPUT ACCEPT && iptables -P OUTPUT ACCEPT && iptables -P FORWARD ACCEPT && iptables -F
     iptables -A INPUT -p tcp --dport 1935 -j ACCEPT
@@ -98,7 +94,7 @@ if [[ $instalar =~ ^[SsYy]$ ]]; then
     iptables -A INPUT -p tcp --dport 5000:65000 -j ACCEPT
     sudo netfilter-persistent save
 
-    # Passo 8 - Configurações adicionais de rede
+    # Passo 7 - Configurações adicionais de rede
     echo "$MSG_PASSO_8"
     echo "net.core.rmem_max = 16777216" | sudo tee -a /etc/sysctl.conf
     echo "net.core.wmem_max = 16777216" | sudo tee -a /etc/sysctl.conf
