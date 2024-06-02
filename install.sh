@@ -59,7 +59,7 @@ read -p "$MSG_PERGUNTA_INSTALACAO" instalar
 if [[ $instalar =~ ^[SsYy]$ ]]; then
     # Passo 1
     echo "$MSG_PASSO_1"
-    sudo apt update -y
+    sudo apt update -y && sudo apt upgrade -y
 
     # Instalar jq para parsear JSON
     sudo apt-get install jq -y
