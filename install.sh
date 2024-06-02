@@ -86,26 +86,11 @@ if [[ $instalar =~ ^[SsYy]$ ]]; then
 
     # Passo 6
     echo "$MSG_PASSO_7"
-    iptables -P INPUT ACCEPT && iptables -P OUTPUT ACCEPT && iptables -P FORWARD ACCEPT && iptables -F
-    iptables -A INPUT -p tcp --dport 1935 -j ACCEPT
-    iptables -A INPUT -p tcp --dport 5080 -j ACCEPT
-    iptables -A INPUT -p tcp --dport 5443 -j ACCEPT
-    iptables -A INPUT -p udp --dport 50000:60000 -j ACCEPT
-    iptables -A INPUT -p tcp --dport 5000:65000 -j ACCEPT
-    sudo netfilter-persistent save
+    iptables -P INPUT ACCEPT && iptables -P OUTPUT ACCEPT && iptables -P FORWARD ACCEPT && iptables -F && iptables -A INPUT -p tcp --dport 1935 -j ACCEPT && iptables -A INPUT -p tcp --dport 5080 -j ACCEPT && iptables -A INPUT -p tcp --dport 5443 -j ACCEPT && iptables -A INPUT -p udp --dport 50000:60000 -j ACCEPT && iptables -A INPUT -p tcp --dport 5000:65000 -j ACCEPT && sudo netfilter-persistent save
 
     # Passo 7 - Configurações adicionais de rede
     echo "$MSG_PASSO_8"
-    echo "net.core.rmem_max = 16777216" | sudo tee -a /etc/sysctl.conf
-    echo "net.core.wmem_max = 16777216" | sudo tee -a /etc/sysctl.conf
-    echo "net.ipv4.tcp_rmem = 4096 87380 16777216" | sudo tee -a /etc/sysctl.conf
-    echo "net.ipv4.tcp_wmem = 4096 87380 16777216" | sudo tee -a /etc/sysctl.conf
-    echo "net.ipv4.tcp_window_scaling = 1" | sudo tee -a /etc/sysctl.conf
-    echo "net.ipv4.tcp_mtu_probing = 1" | sudo tee -a /etc/sysctl.conf
-    sudo sysctl -p
-
-    echo "sudo ifconfig eth0 mtu 1500" | sudo tee -a /etc/rc.local
-    sudo ifconfig eth0 mtu 1500
+    echo "net.core.rmem_max = 16777216" | sudo tee -a /etc/sysctl.conf && echo "net.core.wmem_max = 16777216" | sudo tee -a /etc/sysctl.conf && echo "net.ipv4.tcp_rmem = 4096 87380 16777216" | sudo tee -a /etc/sysctl.conf && echo "net.ipv4.tcp_wmem = 4096 87380 16777216" | sudo tee -a /etc/sysctl.conf && echo "net.ipv4.tcp_window_scaling = 1" | sudo tee -a /etc/sysctl.conf && echo "net.ipv4.tcp_mtu_probing = 1" | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 
     # Obter o IP público da instância
     IP=$(curl -s ifconfig.me)
